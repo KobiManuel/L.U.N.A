@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 const MainPage = () => {
   return (
     <main className={styles.main}>
-      <Header />
+      {/* <Header /> */}
       <figure className={styles.left}>
         {/* <img src={robot} alt="A.I robot image" className={styles.banner} /> */}
       </figure>
