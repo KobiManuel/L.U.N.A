@@ -6,12 +6,16 @@ const MainPage = () => {
   return (
     <main className={styles.main}>
       <figure className={styles.left}>
-        <img src={robot} alt="A.I robot image" className={styles.banner} />
+        {/* <img src={robot} alt="A.I robot image" className={styles.banner} /> */}
       </figure>
-      <div>
-        <label>Future Innovations</label>
-        <h2>L.U.N.A CODEX</h2>
-        <p>
+      <div className={styles.right}>
+        <label className={styles.label}>
+          {" "}
+          Language Understanding Neural Assistant
+        </label>
+        <h2 className={styles.header}>L.U.N.A CODEX</h2>
+
+        <p className={styles.desc}>
           An A.I chat application created with Vite, React.js and Sass.
           Utilizing the Open AI API to send prompts and receive responses
         </p>
