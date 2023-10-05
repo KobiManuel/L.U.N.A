@@ -12,7 +12,7 @@
     background-repeat: no-repeat;
     background-size: 100%;
     position: relative;
-    width: 50%;
+    width: 45%;
     min-height: 716px;
     height: 716px;
     // .banner {
@@ -67,15 +67,41 @@
       mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png");
       -webkit-mask-size: 2300% 100%;
       cursor: pointer;
-      transition: background-color 0.5s;
       font-weight: 600;
-      //   -webkit-animation: ani2 0.7s steps(22) forwards;
-      //   animation: ani2 0.7s steps(22) forwards;
+      -webkit-animation: ani 0.5s steps(22) forwards;
+      animation: ani 0.5s steps(22) forwards;
+      border: 1px solid #3f8d8d !important;
       &:hover {
         -webkit-animation: ani2 0.5s steps(22) forwards;
         animation: ani2 0.5s steps(22) forwards;
+        border: 1px solid #3f8d8d !important;
+        color: #3f8d8d !important;
       }
     }
+  }
+}
+
+@-webkit-keyframes ani {
+  from {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+
+@keyframes ani {
+  from {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
   }
 }
 
@@ -93,12 +119,12 @@
 
 @keyframes ani2 {
   from {
-    -webkit-mask-position: 100% 0;
-    mask-position: 100% 0;
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
   }
 
   to {
-    -webkit-mask-position: 0 0;
-    mask-position: 0 0;
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
   }
 }

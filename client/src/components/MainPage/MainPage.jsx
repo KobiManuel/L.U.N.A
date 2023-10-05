@@ -1,10 +1,12 @@
 import React from "react";
 import styles from "./MainPage.module.scss";
 import robot from "../../assets/intror.jpg";
+import Header from "../Header/Header";
 
 const MainPage = () => {
   return (
     <main className={styles.main}>
+      <Header />
       <figure className={styles.left}>
         {/* <img src={robot} alt="A.I robot image" className={styles.banner} /> */}
       </figure>
