@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  padding: 0 50px;
   .left {
     background-image: url(../../assets/intror.jpg);
     background-position: center;
@@ -61,7 +61,7 @@
       background-color: #3f8d8d;
       color: white;
       border: none;
-      transition: 0.5s;
+      transition: all 0.5s;
       overflow: hidden;
       -webkit-mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png");
       mask: url("https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/nature-sprite.png");
@@ -127,5 +127,69 @@
   to {
     -webkit-mask-position: 100% 0;
     mask-position: 100% 0;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .header {
+    font-size: 2.2rem !important;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .main {
+    margin: 100px auto;
+    flex-direction: column !important;
+    .left {
+      //   width: 100% !important;
+      height: 400px !important;
+      min-height: 400px !important;
+    }
+  }
+  .right {
+    width: 60% !important;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .main {
+    .left {
+      width: 334px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 537px) {
+  .main {
+    .right {
+      width: 100% !important;
+      .label {
+        font-size: 1rem;
+      }
+      .desc {
+        font-size: 1rem;
+      }
+      .name-input {
+        font-size: 0.7rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 404px) {
+  .name-input {
+    width: 100% !important;
+  }
+  .right {
+    padding-bottom: 50px !important;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .main {
+    padding: 0 20px !important;
+    .left {
+      width: 300px !important;
+    }
   }
 }

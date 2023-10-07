@@ -7,6 +7,7 @@ header {
   padding-top: 40px;
   z-index: 1000000000000000;
   cursor: pointer;
+  background: white;
 }
 
 nav {
@@ -14,26 +15,38 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 40px;
+  padding: 0 100px;
 }
 
 nav div {
   display: flex;
   gap: 24px;
+  align-items: center;
+}
+nav div a {
+  height: 24px;
 }
 
 nav div a svg {
   width: 24px;
   height: 24px;
-  fill: white;
+  fill: #3f8d8d;
   transition: fill 0.3s ease-in-out;
 }
 
 nav div a svg:hover {
-  fill: rgba(255, 255, 255, 0.499) !important;
+  fill: #3f8d8d94 !important;
 }
 .name-container {
   text-decoration: none;
+}
+
+.resume {
+  text-decoration: none;
+  color: #3f8d8d;
+  &:hover {
+    color: #3f8d8d94 !important;
+  }
 }
 
 .kobi {
@@ -42,9 +55,10 @@ nav div a svg:hover {
   display: flex;
   align-items: center;
   gap: 4px;
+  color: #3f8d8d;
 }
 .kobi:hover {
-  color: rgba(255, 255, 255, 0.499);
+  color: #3f8d8d94 !important;
 }
 
 .backward-svg {
@@ -63,4 +77,28 @@ nav div a svg:hover {
   fill: var(--primary);
   width: 60%;
   height: 60%;
+}
+
+@media screen and (max-width: 560px) {
+  nav {
+    padding: 0 30px !important;
+  }
+}
+
+@media screen and (max-width: 404px) {
+  .kobi {
+    font-size: 1rem !important;
+  }
+
+  nav div a svg {
+    width: 14px;
+    height: 14px !important;
+  }
+  nav div a {
+    font-size: 0.8rem !important;
+    height: 14px !important;
+    &:last-child {
+      height: fit-content !important;
+    }
+  }
 }
