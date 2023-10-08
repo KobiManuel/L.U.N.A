@@ -15,6 +15,18 @@ const ChatComponent = () => {
   const formRef = useRef(null);
   const textareaRef = useRef(null);
 
+  const capitalizeFirstTwoLetters = (str) => {
+    return str
+      .split(" ")
+      .map((word) => {
+        const firstTwoLetters = word.slice(0, 2).toUpperCase();
+        return firstTwoLetters;
+      })
+      .join(" ");
+  };
+
+  const userName = localStorage.getItem("lunaClient");
+
   const generateUniqueId = () => {
     const timeStamp = Date.now();
     const randomNumber = Math.random();
@@ -144,7 +156,7 @@ const ChatComponent = () => {
                 <div className="profile">
                   <img
                     src={msg.isAi ? bot : user}
-                    alt={msg.isAi ? bot : "user"}
+                    alt={msg.isAi ? "bot" : "user"}
                   />
                 </div>
                 <div className="message" id={msg.uniqueId}>

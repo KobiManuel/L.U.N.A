@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "./MainPage.module.scss";
 import Header from "../Header/Header";
 
 const MainPage = () => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const inputRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -23,6 +25,7 @@ const MainPage = () => {
   };
 
   const handleGetStarted = () => {
+    localStorage.setItem("lunaClient", inputRef?.current?.value);
     navigate("chat");
   };
 
@@ -47,6 +50,7 @@ const MainPage = () => {
           placeholder="e.g. Elon Musk"
           className={styles["name-input"]}
           onChange={handleTextInput}
+          ref={inputRef}
         />
         <div
           style={{ width: "fit-content" }}
