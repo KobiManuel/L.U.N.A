@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./MainPage.module.scss";
 import Header from "../Header/Header";
 
 const MainPage = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   const handleTextInput = (e) => {
     const value = e.target.value.trim();
     const words = value.split(/\s+/);
     if (words.length === 2) {
       e.target.value = words.slice(0, 2).join(" ");
     }
+  };
+
+  const handleMouseOver = () => {
+    setTimeout(() => {
+      setIsHovered(true);
+    }, 400);
   };
 
   return (
@@ -33,7 +41,17 @@ const MainPage = () => {
           className={styles["name-input"]}
           onChange={handleTextInput}
         />
-        <button className={styles["get-started-btn"]}>Get Started</button>
+        <div
+          style={{ width: "fit-content" }}
+          onMouseOver={handleMouseOver}
+          onMouseOut={() => setIsHovered(false)}
+        >
+          {isHovered ? (
+            <button className={styles["bordered-btn"]}>Get Started</button>
+          ) : (
+            <button className={styles["get-started-btn"]}>Get Started</button>
+          )}
+        </div>
       </div>
     </main>
   );
