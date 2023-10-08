@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-const CheckCircle = ({ onClick, size = 20 }) => {
+const CheckCircle = ({ onClick, size = 20, className }) => {
   return (
     <svg
       style={{ width: size, height: size }}
@@ -10,6 +10,7 @@ const CheckCircle = ({ onClick, size = 20 }) => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         fillRule="evenodd"

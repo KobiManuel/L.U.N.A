@@ -19,6 +19,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  margin-top: 67px;
 }
 
 #chat_container {
@@ -216,15 +217,16 @@ form img {
   height: 18px;
 }
 
-svg {
+.svg {
   width: 18px;
   height: 18px;
   fill: #002240;
   cursor: pointer;
+  path {
+    fill: #4c9ce267;
+  }
 }
-path {
-  fill: #4c9ce267;
-}
+
 .copy_float {
   position: absolute;
   top: -32px;

@@ -5,6 +5,7 @@ import send from "../../assets/send.png";
 import "./ChatComponent.scss";
 import CopyIcon from "../Icons/CopyIcon";
 import CheckCircle from "../Icons/CheckCircle";
+import Header from "../Header/Header";
 
 const ChatComponent = () => {
   const [chatMessages, setChatMessages] = useState([]);
@@ -116,60 +117,67 @@ const ChatComponent = () => {
   };
 
   return (
-    <div id="app" onLoad={typeText}>
-      <div id="typing-text" className="wrapper ai" ref={typingTextRef}>
-        <span class="profile ai">
-          <img src={bot} alt="/" />
-        </span>
-      </div>
-      <div id="chat_container">
-        {chatMessages.map((msg, index) => (
-          <div key={index} className={`wrapper ${msg.isAi ? "ai" : ""}`}>
-            {msg.isAi && (
-              <button id="btn" onClick={handleClick}>
-                {copied ? <CheckCircle size={18} /> : <CopyIcon size={18} />}
+    <>
+      <Header />
+      <div id="app" onLoad={typeText}>
+        <div id="typing-text" className="wrapper ai" ref={typingTextRef}>
+          <span class="profile ai">
+            <img src={bot} alt="/" />
+          </span>
+        </div>
+        <div id="chat_container">
+          {chatMessages.map((msg, index) => (
+            <div key={index} className={`wrapper ${msg.isAi ? "ai" : ""}`}>
+              {msg.isAi && (
+                <button id="btn" onClick={handleClick}>
+                  {copied ? (
+                    <CheckCircle className={"svg"} size={18} />
+                  ) : (
+                    <CopyIcon size={18} />
+                  )}
 
-                {copied ? <span className="copy_float">Copied</span> : ""}
-              </button>
-            )}
+                  {copied ? <span className="copy_float">Copied</span> : ""}
+                </button>
+              )}
 
-            <div className="chat">
-              <div className="profile">
-                <img
-                  src={msg.isAi ? bot : user}
-                  alt={msg.isAi ? bot : "user"}
-                />
-              </div>
-              <div className="message" id={msg.uniqueId}>
-                {msg.message}
+              <div className="chat">
+                <div className="profile">
+                  <img
+                    src={msg.isAi ? bot : user}
+                    alt={msg.isAi ? bot : "user"}
+                  />
+                </div>
+                <div className="message" id={msg.uniqueId}>
+                  {msg.message}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="form-container">
-        <form
-          style={{ minHeight: "62px" }}
-          onSubmit={handleSubmit}
-          onInput={autoResize}
-          ref={formRef}
-        >
-          <textarea
-            name="prompt"
-            rows="1"
-            cols="1"
-            placeholder="Ask L.U.N.A..."
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            ref={textareaRef}
-          />
-          <button type="submit">
-            <img src={send} alt="Send" />
-          </button>
-        </form>
+        <div className="form-container">
+          <form
+            style={{ minHeight: "62px" }}
+            onSubmit={handleSubmit}
+            onInput={autoResize}
+            ref={formRef}
+          >
+            <textarea
+              name="prompt"
+              rows="1"
+              cols="1"
+              placeholder="Ask L.U.N.A..."
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              ref={textareaRef}
+            />
+            <button type="submit">
+              <img src={send} alt="Send" />
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
