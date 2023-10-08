@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import styles from "./MainPage.module.scss";
 import Header from "../Header/Header";
 
 const MainPage = () => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleTextInput = (e) => {
     const value = e.target.value.trim();
@@ -17,6 +20,10 @@ const MainPage = () => {
     setTimeout(() => {
       setIsHovered(true);
     }, 400);
+  };
+
+  const handleGetStarted = () => {
+    navigate("chat");
   };
 
   return (
@@ -47,9 +54,19 @@ const MainPage = () => {
           onMouseOut={() => setIsHovered(false)}
         >
           {isHovered ? (
-            <button className={styles["bordered-btn"]}>Get Started</button>
+            <button
+              className={styles["bordered-btn"]}
+              onClick={handleGetStarted}
+            >
+              Get Started
+            </button>
           ) : (
-            <button className={styles["get-started-btn"]}>Get Started</button>
+            <button
+              className={styles["get-started-btn"]}
+              onClick={handleGetStarted}
+            >
+              Get Started
+            </button>
           )}
         </div>
       </div>
