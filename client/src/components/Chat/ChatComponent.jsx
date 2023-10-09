@@ -22,7 +22,7 @@ const ChatComponent = () => {
         const firstTwoLetters = word.slice(0, 1).toUpperCase();
         return firstTwoLetters;
       })
-      .join(" ");
+      .join("");
   };
 
   const userName = localStorage.getItem("lunaClient");

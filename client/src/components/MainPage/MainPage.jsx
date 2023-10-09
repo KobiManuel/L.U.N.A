@@ -4,7 +4,6 @@ import styles from "./MainPage.module.scss";
 import Header from "../Header/Header";
 
 const MainPage = () => {
-  const [isHovered, setIsHovered] = useState(false);
   const [error, setError] = useState(false);
 
   const inputRef = useRef(null);
@@ -20,12 +19,6 @@ const MainPage = () => {
     if (words.length === 2) {
       e.target.value = words.slice(0, 2).join(" ");
     }
-  };
-
-  const handleMouseOver = () => {
-    setTimeout(() => {
-      setIsHovered(true);
-    }, 400);
   };
 
   const handleGetStarted = () => {
@@ -75,27 +68,17 @@ const MainPage = () => {
             ""
           )}
         </div>
-        <div
-          style={{ width: "fit-content" }}
-          onMouseOver={handleMouseOver}
-          onMouseOut={() => setIsHovered(false)}
+
+        <button
+          className={styles["get-started-btn"]}
+          onClick={handleGetStarted}
         >
-          {isHovered ? (
-            <button
-              className={styles["bordered-btn"]}
-              onClick={handleGetStarted}
-            >
-              Get Started
-            </button>
-          ) : (
-            <button
-              className={styles["get-started-btn"]}
-              onClick={handleGetStarted}
-            >
-              Get Started
-            </button>
-          )}
-        </div>
+          Get Started
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </main>
   );
