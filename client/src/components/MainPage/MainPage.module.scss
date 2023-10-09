@@ -52,6 +52,14 @@
       padding: 8px;
       font-size: 1rem;
     }
+    .error-msg {
+      position: absolute;
+      left: 0;
+      bottom: -40%;
+      font-size: 11px;
+      color: rgba(255, 0, 0, 0.794);
+      white-space: nowrap;
+    }
     .bordered-btn {
       position: relative;
       font-size: 1rem;
