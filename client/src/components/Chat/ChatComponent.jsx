@@ -19,7 +19,7 @@ const ChatComponent = () => {
     return str
       .split(" ")
       .map((word) => {
-        const firstTwoLetters = word.slice(0, 2).toUpperCase();
+        const firstTwoLetters = word.slice(0, 1).toUpperCase();
         return firstTwoLetters;
       })
       .join(" ");
@@ -154,10 +154,13 @@ const ChatComponent = () => {
 
               <div className="chat">
                 <div className="profile">
-                  <img
-                    src={msg.isAi ? bot : user}
-                    alt={msg.isAi ? "bot" : "user"}
-                  />
+                  {msg.isAi ? (
+                    <img src={bot} alt={"bot"} />
+                  ) : (
+                    <span className="username">
+                      {capitalizeFirstTwoLetters(userName)}
+                    </span>
+                  )}
                 </div>
                 <div className="message" id={msg.uniqueId}>
                   {msg.message}

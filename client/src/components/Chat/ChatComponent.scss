@@ -72,11 +72,22 @@ body {
   min-width: 36px;
   height: 36px;
   border-radius: 5px;
-  background-color: #4c9ce252;
+  background-color: #4c9ce29b;
   border-radius: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
+  .username {
+    width: 80%;
+    height: 80%;
+    min-width: 21.59px;
+    min-height: 21.59px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 600;
+  }
 }
 
 .ai .profile {
