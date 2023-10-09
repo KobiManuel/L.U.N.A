@@ -27,6 +27,19 @@ const ChatComponent = () => {
 
   const userName = localStorage.getItem("lunaClient");
 
+  function typedText(element, text) {
+    let index = 0;
+
+    let interval = setInterval(() => {
+      if (index < text.length) {
+        element.innerHTML += text.charAt(index);
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 50);
+  }
+
   const generateUniqueId = () => {
     const timeStamp = Date.now();
     const randomNumber = Math.random();
@@ -79,13 +92,7 @@ const ChatComponent = () => {
       if (response.ok) {
         const data = await response.json();
         const parsedData = data.bot.trim();
-
-        // Update the chat messages with the AI's response
-        setChatMessages((prevMessages) =>
-          prevMessages.map((msg) =>
-            msg.uniqueId === uniqueId ? { ...msg, message: parsedData } : msg
-          )
-        );
+        typedText(document.getElementById(uniqueId), parsedData);
       } else {
         alert("Houston, we have a problem! 🤯🤯");
       }
@@ -129,7 +136,7 @@ const ChatComponent = () => {
   };
 
   return (
-    <>
+    <div className="chat-container-body">
       <Header />
       <div id="app" onLoad={typeText}>
         <div id="typing-text" className="wrapper ai" ref={typingTextRef}>
@@ -192,7 +199,7 @@ const ChatComponent = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
