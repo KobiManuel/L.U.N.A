@@ -47,6 +47,20 @@ const ChatComponent = () => {
     return `id-${timeStamp}-${hexadecimalString}`;
   };
 
+  let loadInterval;
+
+  function loader(element) {
+    element.textContent = "";
+
+    loadInterval = setInterval(() => {
+      element.textContent += "♥";
+
+      if (element.textContent === "♥♥♥♥") {
+        element.textContent = "";
+      }
+    }, 300);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -70,33 +84,40 @@ const ChatComponent = () => {
       { isAi: true, message: "", uniqueId },
     ]);
 
-    // Simulating server response delay
-    setTimeout(async () => {
-      // Assume this is your actual fetch call
-      // const response = await fetch('http://localhost:5000', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     prompt: inputValue,
-      //   }),
-      // });
+    // const response = {
+    //   ok: true,
+    //   json: async () => ({ bot: "Hello! I am a simulated response." }),
+    // };
 
-      // Simulate server response
-      const response = {
-        ok: true,
-        json: async () => ({ bot: "Hello! I am a simulated response." }),
-      };
+    try {
+      const response = await fetch("http://localhost:5000", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: inputValue,
+        }),
+      });
+
+      const messageDiv = document.getElementById(uniqueId);
+
+      loader(messageDiv);
 
       if (response.ok) {
         const data = await response.json();
         const parsedData = data.bot.trim();
+        clearInterval(loadInterval);
+        messageDiv.innerHTML = "";
         typedText(document.getElementById(uniqueId), parsedData);
       } else {
-        alert("Houston, we have a problem! 🤯🤯");
+        clearInterval(loadInterval);
+        messageDiv.innerHTML = "Houston, we have a problem! 🤯🤯";
       }
-    }, 2000); // Simulating a 2-second server response delay
+    } catch (error) {
+      console.error("Error:", error);
+      messageDiv.innerHTML = error;
+    }
   };
 
   const text =
@@ -140,7 +161,7 @@ const ChatComponent = () => {
       <Header />
       <div id="app" onLoad={typeText}>
         <div id="typing-text" className="wrapper ai" ref={typingTextRef}>
-          <span class="profile ai">
+          <span className="profile ai">
             <img src={bot} alt="/" />
           </span>
         </div>
