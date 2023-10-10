@@ -26,7 +26,13 @@ app.post("/", async (req, res) => {
       messages: [
         {
           role: "system",
-          content: "Hello! I am L.U.N.A a chatbot built by Kobi",
+          content:
+            "You are a helpful assistant, answer all questions and provide help",
+        },
+        {
+          role: "assistant",
+          content:
+            "Hello! I am a chatbot built by Kobi. How can i help you today?",
         },
         { role: "user", content: prompt },
       ],
@@ -38,7 +44,7 @@ app.post("/", async (req, res) => {
     });
 
     res.status(200).send({
-      bot: response.data.choices[0].text,
+      bot: response.choices[0].message.content,
     });
   } catch (error) {
     console.log(error);

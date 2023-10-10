@@ -40,6 +40,10 @@ const ChatComponent = () => {
     }, 50);
   }
 
+  const hasReceivedValidResponse = localStorage.getItem(
+    "hasReceivedValidResponse"
+  );
+
   const generateUniqueId = () => {
     const timeStamp = Date.now();
     const randomNumber = Math.random();
@@ -47,19 +51,19 @@ const ChatComponent = () => {
     return `id-${timeStamp}-${hexadecimalString}`;
   };
 
-  let loadInterval;
+  // let loadInterval;
 
-  function loader(element) {
-    element.textContent = "";
+  // function loader(element) {
+  //   element.textContent = "";
 
-    loadInterval = setInterval(() => {
-      element.textContent += "♥";
+  //   loadInterval = setInterval(() => {
+  //     element.textContent += ".";
 
-      if (element.textContent === "♥♥♥♥") {
-        element.textContent = "";
-      }
-    }, 300);
-  }
+  //     if (element.textContent === "....") {
+  //       element.textContent = "";
+  //     }
+  //   }, 300);
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,11 +82,32 @@ const ChatComponent = () => {
       { isAi: false, message: inputValue },
     ]);
 
+    const hasReceivedValidResponse = localStorage.getItem(
+      "hasReceivedValidResponse"
+    );
+
     const uniqueId = generateUniqueId();
-    setChatMessages((prevMessages) => [
-      ...prevMessages,
-      { isAi: true, message: "", uniqueId },
-    ]);
+
+    if (hasReceivedValidResponse) {
+      setChatMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          isAi: true,
+          message: "We are limiting requests to one per person to save costs",
+          uniqueId,
+        },
+      ]);
+      return;
+    } else {
+      setChatMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          isAi: true,
+          message: "",
+          uniqueId,
+        },
+      ]);
+    }
 
     // const response = {
     //   ok: true,
@@ -102,21 +127,20 @@ const ChatComponent = () => {
 
       const messageDiv = document.getElementById(uniqueId);
 
-      loader(messageDiv);
-
       if (response.ok) {
         const data = await response.json();
         const parsedData = data.bot.trim();
-        clearInterval(loadInterval);
-        messageDiv.innerHTML = "";
         typedText(document.getElementById(uniqueId), parsedData);
+        localStorage.setItem("hasReceivedValidResponse", "true");
       } else {
-        clearInterval(loadInterval);
         messageDiv.innerHTML = "Houston, we have a problem! 🤯🤯";
       }
     } catch (error) {
+      const messageDiv = document.getElementById(uniqueId);
       console.error("Error:", error);
-      messageDiv.innerHTML = error;
+      if (messageDiv) {
+        messageDiv.innerHTML = "Houston, we have a problem! 🤯🤯";
+      }
     }
   };
 
@@ -132,6 +156,12 @@ const ChatComponent = () => {
       setTimeout(typeText, speed);
     }
   }
+
+  useEffect(() => {
+    typeText();
+
+    return () => {};
+  }, []);
 
   function handleClick(event) {
     const button = event.currentTarget;
@@ -159,7 +189,7 @@ const ChatComponent = () => {
   return (
     <div className="chat-container-body">
       <Header />
-      <div id="app" onLoad={typeText}>
+      <div id="app">
         <div id="typing-text" className="wrapper ai" ref={typingTextRef}>
           <span className="profile ai">
             <img src={bot} alt="/" />
@@ -191,7 +221,52 @@ const ChatComponent = () => {
                   )}
                 </div>
                 <div className="message" id={msg.uniqueId}>
-                  {msg.message}
+                  {msg.isAi &&
+                  !hasReceivedValidResponse &&
+                  msg.message.trim() === "" ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle cx="18" cy="12" r="0" fill="currentColor">
+                        <animate
+                          attributeName="r"
+                          begin=".67"
+                          calcMode="spline"
+                          dur="1.5s"
+                          keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                          repeatCount="indefinite"
+                          values="0;2;0;0"
+                        />
+                      </circle>
+                      <circle cx="12" cy="12" r="0" fill="currentColor">
+                        <animate
+                          attributeName="r"
+                          begin=".33"
+                          calcMode="spline"
+                          dur="1.5s"
+                          keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                          repeatCount="indefinite"
+                          values="0;2;0;0"
+                        />
+                      </circle>
+                      <circle cx="6" cy="12" r="0" fill="currentColor">
+                        <animate
+                          attributeName="r"
+                          begin="0"
+                          calcMode="spline"
+                          dur="1.5s"
+                          keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                          repeatCount="indefinite"
+                          values="0;2;0;0"
+                        />
+                      </circle>
+                    </svg>
+                  ) : (
+                    msg.message
+                  )}
                 </div>
               </div>
             </div>
