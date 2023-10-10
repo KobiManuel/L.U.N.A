@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import bot from "../../assets/lunabot1.png";
 import "./Header.scss";
 
 const Header = () => {
@@ -7,7 +8,16 @@ const Header = () => {
     <header>
       <nav>
         <Link to="/" className="name-container">
-          <p className="kobi">L.U.N.A</p>
+          <p className="kobi">
+            {" "}
+            <div
+              className="profile header-logo"
+              style={{ background: "#3f8d8d " }}
+            >
+              <img src={bot} alt={"bot"} />
+            </div>
+            L.U.N.A
+          </p>
         </Link>
         <div>
           {" "}
