@@ -22,10 +22,16 @@ app.post("/", async (req, res) => {
     const prompt = req.body.prompt;
 
     const response = await openai.chat.completions.create({
-      model: "text-davinci-003",
-      prompt: `${prompt}`,
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: "Hello! I am L.U.N.A a chatbot built by Kobi",
+        },
+        { role: "user", content: prompt },
+      ],
       temperature: 0,
-      max_tokens: 3000,
+      max_tokens: 500,
       top_p: 1,
       frequency_penalty: 0.5,
       presence_penalty: 0,
