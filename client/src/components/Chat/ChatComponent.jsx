@@ -30,6 +30,8 @@ const ChatComponent = () => {
   const userName = localStorage.getItem("lunaClient");
 
   function typedText(element, text) {
+    setIsProcessingResponse(true);
+
     let index = 0;
 
     let interval = setInterval(() => {
@@ -38,6 +40,7 @@ const ChatComponent = () => {
         index++;
       } else {
         clearInterval(interval);
+        setIsProcessingResponse(false);
       }
     }, 50);
   }
@@ -184,8 +187,6 @@ const ChatComponent = () => {
       if (messageDiv) {
         messageDiv.innerHTML = "Houston, we have a problem! 🤯🤯";
       }
-    } finally {
-      setIsProcessingResponse(false);
     }
   };
 
@@ -195,10 +196,16 @@ const ChatComponent = () => {
   let i = 0;
 
   function typeText() {
+    setIsProcessingResponse(true);
+
     if (i < text.length) {
       typingTextRef.current.innerHTML += text.charAt(i);
       i++;
       setTimeout(typeText, speed);
+    } else {
+      setTimeout(() => {
+        setIsProcessingResponse(false);
+      }, 10);
     }
   }
 
