@@ -259,10 +259,12 @@ const ChatComponent = () => {
                 <div className="profile">
                   {msg.isAi ? (
                     <img src={bot} alt={"bot"} />
-                  ) : (
+                  ) : userName ? (
                     <span className="username">
                       {capitalizeFirstTwoLetters(userName)}
                     </span>
+                  ) : (
+                    <img src={user} alt="user" />
                   )}
                 </div>
                 <div className="message" id={msg.uniqueId}>
