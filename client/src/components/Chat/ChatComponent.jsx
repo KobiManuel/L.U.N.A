@@ -78,8 +78,6 @@ const ChatComponent = () => {
 
     setInputValue("");
 
-    setIsProcessingResponse(true);
-
     setChatMessages((prevMessages) => [
       ...prevMessages,
       { isAi: false, message: inputValue },
