@@ -80,6 +80,9 @@ nav div a svg:hover {
 }
 
 @media screen and (max-width: 560px) {
+  * {
+    cursor: default !important;
+  }
   nav {
     padding: 0 30px !important;
   }
