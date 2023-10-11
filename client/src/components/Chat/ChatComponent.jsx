@@ -12,6 +12,7 @@ const ChatComponent = () => {
   const [inputValue, setInputValue] = useState("");
   const [copied, setCopied] = useState(false);
   const [isProcessingResponse, setIsProcessingResponse] = useState(false);
+  const [copiedMessageId, setCopiedMessageId] = useState(null);
 
   const typingTextRef = useRef(null);
   const formRef = useRef(null);
@@ -213,16 +214,16 @@ const ChatComponent = () => {
     return () => {};
   }, []);
 
-  function handleClick(event) {
+  function handleClick(event, messageId) {
     const button = event.currentTarget;
     const div = button.parentNode;
 
     const text = div.querySelector(".message").textContent;
     navigator.clipboard.writeText(text);
-    setCopied(true);
+    setCopiedMessageId(messageId);
 
     setTimeout(() => {
-      setCopied(false);
+      setCopiedMessageId(null);
     }, 3000);
   }
 
@@ -249,14 +250,21 @@ const ChatComponent = () => {
           {chatMessages.map((msg, index) => (
             <div key={index} className={`wrapper ${msg.isAi ? "ai" : ""}`}>
               {msg.isAi && (
-                <button id="btn" onClick={handleClick}>
-                  {copied ? (
+                <button
+                  id="btn"
+                  onClick={(event) => handleClick(event, msg.uniqueId)}
+                >
+                  {copiedMessageId === msg.uniqueId ? (
                     <CheckCircle className={"svg"} size={18} />
                   ) : (
                     <CopyIcon size={18} />
                   )}
 
-                  {copied ? <span className="copy_float">Copied</span> : ""}
+                  {copiedMessageId === msg.uniqueId ? (
+                    <span className="copy_float">Copied</span>
+                  ) : (
+                    ""
+                  )}
                 </button>
               )}
 
