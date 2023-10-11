@@ -96,7 +96,7 @@ const ChatComponent = () => {
         {
           isAi: true,
           message:
-            "I'm sorry, requests are being limited to one trial per person to save costs",
+            "⚠ ⚠I'm sorry, requests are being limited to one trial per person to save costs",
           uniqueId,
         },
       ]);
