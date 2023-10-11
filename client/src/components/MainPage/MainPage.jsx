@@ -60,7 +60,7 @@ const MainPage = () => {
         <h2 className={styles.header}>L.U.N.A CODEX</h2>
 
         <p className={styles.desc}>
-          An A.I chat application created with Vite, React.js and Sass.
+          An A.I chat application created with Vite, React.js and Node.
           Utilizing the Open AI API to send prompts and receive responses
         </p>
         <div style={{ position: "relative", width: "fit-content" }}>
