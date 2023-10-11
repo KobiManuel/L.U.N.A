@@ -27,7 +27,7 @@ app.post("/", async (req, res) => {
         {
           role: "system",
           content:
-            "You are a helpful assistant, answer all questions and provide help",
+            "You are L.U.N.A(Language Understanding Neural Assistant) a helpful assistant. Answer all questions and provide help",
         },
         {
           role: "assistant",
