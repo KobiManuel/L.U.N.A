@@ -10,7 +10,7 @@
     background-image: url(../../assets/intror.jpg);
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 90%;
     position: relative;
     width: 45%;
     min-height: 716px;
@@ -27,20 +27,20 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    width: 40%;
+    width: 45%;
     .label {
       font-weight: 300;
       line-height: 1.2;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
     }
     .header {
-      font-size: 4.0625rem;
+      font-size: 3.8rem;
       font-weight: 700;
       text-transform: uppercase;
     }
     .desc {
       font-weight: 400;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     }
     .name-input {
       border: none;
@@ -48,9 +48,9 @@
       width: 300px;
       border-radius: 8px;
       border: 1px solid #4c9ce252;
-      height: 45px;
+      height: 40px;
       padding: 8px;
-      font-size: 1rem;
+      font-size: 0.8rem;
     }
     .error-msg {
       position: absolute;
@@ -94,7 +94,7 @@
 
 .get-started-btn {
   color: white;
-  font-size: 14px;
+  font-size: 12px;
   border-radius: 0.5em;
   width: fit-content;
   text-transform: capitalize;
