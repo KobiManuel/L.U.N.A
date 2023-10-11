@@ -11,6 +11,8 @@ const ChatComponent = () => {
   const [chatMessages, setChatMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [copied, setCopied] = useState(false);
+  const [isProcessingResponse, setIsProcessingResponse] = useState(false);
+
   const typingTextRef = useRef(null);
   const formRef = useRef(null);
   const textareaRef = useRef(null);
@@ -39,10 +41,6 @@ const ChatComponent = () => {
       }
     }, 50);
   }
-
-  const hasReceivedValidResponse = localStorage.getItem(
-    "hasReceivedValidResponse"
-  );
 
   const generateUniqueId = () => {
     const timeStamp = Date.now();
@@ -77,6 +75,8 @@ const ChatComponent = () => {
 
     setInputValue("");
 
+    setIsProcessingResponse(true);
+
     setChatMessages((prevMessages) => [
       ...prevMessages,
       { isAi: false, message: inputValue },
@@ -93,7 +93,8 @@ const ChatComponent = () => {
         ...prevMessages,
         {
           isAi: true,
-          message: "We are limiting requests to one per person to save costs",
+          message:
+            "Requests are being limited to one trial per person to save costs",
           uniqueId,
         },
       ]);
@@ -103,7 +104,48 @@ const ChatComponent = () => {
         ...prevMessages,
         {
           isAi: true,
-          message: "",
+          message: (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="18" cy="12" r="0" fill="currentColor">
+                <animate
+                  attributeName="r"
+                  begin=".67"
+                  calcMode="spline"
+                  dur="1.5s"
+                  keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                  repeatCount="indefinite"
+                  values="0;2;0;0"
+                />
+              </circle>
+              <circle cx="12" cy="12" r="0" fill="currentColor">
+                <animate
+                  attributeName="r"
+                  begin=".33"
+                  calcMode="spline"
+                  dur="1.5s"
+                  keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                  repeatCount="indefinite"
+                  values="0;2;0;0"
+                />
+              </circle>
+              <circle cx="6" cy="12" r="0" fill="currentColor">
+                <animate
+                  attributeName="r"
+                  begin="0"
+                  calcMode="spline"
+                  dur="1.5s"
+                  keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                  repeatCount="indefinite"
+                  values="0;2;0;0"
+                />
+              </circle>
+            </svg>
+          ),
           uniqueId,
         },
       ]);
@@ -130,6 +172,7 @@ const ChatComponent = () => {
       if (response.ok) {
         const data = await response.json();
         const parsedData = data.bot.trim();
+        messageDiv.innerHTML = "";
         typedText(document.getElementById(uniqueId), parsedData);
         localStorage.setItem("hasReceivedValidResponse", "true");
       } else {
@@ -141,6 +184,8 @@ const ChatComponent = () => {
       if (messageDiv) {
         messageDiv.innerHTML = "Houston, we have a problem! 🤯🤯";
       }
+    } finally {
+      setIsProcessingResponse(false);
     }
   };
 
@@ -221,52 +266,7 @@ const ChatComponent = () => {
                   )}
                 </div>
                 <div className="message" id={msg.uniqueId}>
-                  {msg.isAi &&
-                  !hasReceivedValidResponse &&
-                  msg.message.trim() === "" ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle cx="18" cy="12" r="0" fill="currentColor">
-                        <animate
-                          attributeName="r"
-                          begin=".67"
-                          calcMode="spline"
-                          dur="1.5s"
-                          keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
-                          repeatCount="indefinite"
-                          values="0;2;0;0"
-                        />
-                      </circle>
-                      <circle cx="12" cy="12" r="0" fill="currentColor">
-                        <animate
-                          attributeName="r"
-                          begin=".33"
-                          calcMode="spline"
-                          dur="1.5s"
-                          keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
-                          repeatCount="indefinite"
-                          values="0;2;0;0"
-                        />
-                      </circle>
-                      <circle cx="6" cy="12" r="0" fill="currentColor">
-                        <animate
-                          attributeName="r"
-                          begin="0"
-                          calcMode="spline"
-                          dur="1.5s"
-                          keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
-                          repeatCount="indefinite"
-                          values="0;2;0;0"
-                        />
-                      </circle>
-                    </svg>
-                  ) : (
-                    msg.message
-                  )}
+                  {msg.message}
                 </div>
               </div>
             </div>
@@ -290,7 +290,50 @@ const ChatComponent = () => {
               ref={textareaRef}
             />
             <button type="submit">
-              <img src={send} alt="Send" />
+              {isProcessingResponse ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="18" cy="12" r="0" fill="currentColor">
+                    <animate
+                      attributeName="r"
+                      begin=".67"
+                      calcMode="spline"
+                      dur="1.5s"
+                      keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                      repeatCount="indefinite"
+                      values="0;2;0;0"
+                    />
+                  </circle>
+                  <circle cx="12" cy="12" r="0" fill="currentColor">
+                    <animate
+                      attributeName="r"
+                      begin=".33"
+                      calcMode="spline"
+                      dur="1.5s"
+                      keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                      repeatCount="indefinite"
+                      values="0;2;0;0"
+                    />
+                  </circle>
+                  <circle cx="6" cy="12" r="0" fill="currentColor">
+                    <animate
+                      attributeName="r"
+                      begin="0"
+                      calcMode="spline"
+                      dur="1.5s"
+                      keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+                      repeatCount="indefinite"
+                      values="0;2;0;0"
+                    />
+                  </circle>
+                </svg>
+              ) : (
+                <img src={send} alt="Send" />
+              )}
             </button>
           </form>
         </div>
