@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "./MainPage.module.scss";
 import Header from "../Header/Header";
@@ -9,6 +9,16 @@ const MainPage = () => {
   const inputRef = useRef(null);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const userName = localStorage.getItem("lunaClient");
+    if (userName) {
+      const [firstName, lastName] = userName.split(" ");
+      if (inputRef.current) {
+        inputRef.current.value = `${firstName} ${lastName}`;
+      }
+    }
+  }, []);
 
   const handleTextInput = (e) => {
     const value = e.target.value.trim();

@@ -43,7 +43,7 @@ const ChatComponent = () => {
         clearInterval(interval);
         setIsProcessingResponse(false);
       }
-    }, 50);
+    }, 20);
   }
 
   const generateUniqueId = () => {
@@ -191,7 +191,7 @@ const ChatComponent = () => {
 
   const text =
     "Hello, I am L.U.N.A codex. Your Language Understanding Neural Assistant. I am here to assist you on your tasks.";
-  const speed = 50;
+  const speed = 30;
   let i = 0;
 
   function typeText() {
