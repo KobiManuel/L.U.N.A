@@ -313,7 +313,7 @@ const ChatComponent = () => {
         </div>
 
         <div className="form-container">
-          {!isProcessingResponse && (
+          {!isProcessingResponse && inputValue.trim().length < 1 ? (
             <div
               className="completetion-container-main"
               ref={completionContainerRef}
@@ -335,6 +335,8 @@ const ChatComponent = () => {
                 onButtonClick={handleButtonClick}
               />
             </div>
+          ) : (
+            ""
           )}
           <form
             style={{ minHeight: "62px" }}

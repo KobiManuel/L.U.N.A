@@ -3,7 +3,6 @@ import * as dotenv from "dotenv";
 import cors from "cors";
 import OpenAI from "openai";
 
-
 dotenv.config();
 
 const openai = new OpenAI({
@@ -38,7 +37,7 @@ app.post("/", async (req, res) => {
         { role: "user", content: prompt },
       ],
       temperature: 0,
-      max_tokens: 500,
+      max_tokens: 400,
       top_p: 1,
       frequency_penalty: 0.5,
       presence_penalty: 0,
