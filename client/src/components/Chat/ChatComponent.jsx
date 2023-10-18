@@ -95,6 +95,55 @@ const ChatComponent = () => {
 
     const uniqueId = generateUniqueId();
 
+    const timeoutMessage =
+      "This might take a couple more seconds, server is spinning up.";
+
+    const timeoutMessageWithSVG = (
+      <div>
+        {timeoutMessage}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 14 14"
+        >
+          <circle cx="18" cy="12" r="0" fill="currentColor">
+            <animate
+              attributeName="r"
+              begin=".67"
+              calcMode="spline"
+              dur="1.5s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+              repeatCount="indefinite"
+              values="0;2;0;0"
+            />
+          </circle>
+          <circle cx="12" cy="12" r="0" fill="currentColor">
+            <animate
+              attributeName="r"
+              begin=".33"
+              calcMode="spline"
+              dur="1.5s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+              repeatCount="indefinite"
+              values="0;2;0;0"
+            />
+          </circle>
+          <circle cx="6" cy="12" r="0" fill="currentColor">
+            <animate
+              attributeName="r"
+              begin="0"
+              calcMode="spline"
+              dur="1.5s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
+              repeatCount="indefinite"
+              values="0;2;0;0"
+            />
+          </circle>
+        </svg>
+      </div>
+    );
+
     if (hasReceivedValidResponse) {
       setChatMessages((prevMessages) => [
         ...prevMessages,
@@ -111,48 +160,7 @@ const ChatComponent = () => {
         ...prevMessages,
         {
           isAi: true,
-          message: (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="18" cy="12" r="0" fill="currentColor">
-                <animate
-                  attributeName="r"
-                  begin=".67"
-                  calcMode="spline"
-                  dur="1.5s"
-                  keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
-                  repeatCount="indefinite"
-                  values="0;2;0;0"
-                />
-              </circle>
-              <circle cx="12" cy="12" r="0" fill="currentColor">
-                <animate
-                  attributeName="r"
-                  begin=".33"
-                  calcMode="spline"
-                  dur="1.5s"
-                  keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
-                  repeatCount="indefinite"
-                  values="0;2;0;0"
-                />
-              </circle>
-              <circle cx="6" cy="12" r="0" fill="currentColor">
-                <animate
-                  attributeName="r"
-                  begin="0"
-                  calcMode="spline"
-                  dur="1.5s"
-                  keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8"
-                  repeatCount="indefinite"
-                  values="0;2;0;0"
-                />
-              </circle>
-            </svg>
-          ),
+          message: timeoutMessageWithSVG,
           uniqueId,
         },
       ]);
@@ -183,7 +191,12 @@ const ChatComponent = () => {
         typedText(document.getElementById(uniqueId), parsedData);
         localStorage.setItem("hasReceivedValidResponse", "true");
       } else {
-        messageDiv.innerHTML = "Houston, we have a problem! 🤯🤯";
+        if (response.status === 429) {
+          messageDiv.innerHTML =
+            "Oops! 😓 You have exhausted your API credits. On the bright side, you can tell the application works.";
+        } else {
+          messageDiv.innerHTML = "Houston, we have a problem! 🤯🤯";
+        }
       }
     } catch (error) {
       const messageDiv = document.getElementById(uniqueId);
