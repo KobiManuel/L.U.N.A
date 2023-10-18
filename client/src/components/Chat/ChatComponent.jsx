@@ -6,6 +6,7 @@ import "./ChatComponent.scss";
 import CopyIcon from "../Icons/CopyIcon";
 import CheckCircle from "../Icons/CheckCircle";
 import Header from "../Header/Header";
+import KeepWebsiteAlive from "../KeepWebsiteAlive";
 
 const ChatComponent = () => {
   const [chatMessages, setChatMessages] = useState([]);
@@ -13,6 +14,8 @@ const ChatComponent = () => {
   const [buttonText, setButtonText] = useState("");
   const [isProcessingResponse, setIsProcessingResponse] = useState(false);
   const [copiedMessageId, setCopiedMessageId] = useState(null);
+
+  KeepWebsiteAlive();
 
   const typingTextRef = useRef(null);
   const formRef = useRef(null);

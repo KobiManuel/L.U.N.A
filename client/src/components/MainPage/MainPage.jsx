@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "./MainPage.module.scss";
 import Header from "../Header/Header";
+import KeepWebsiteAlive from "../KeepWebsiteAlive";
 
 const MainPage = () => {
   const [error, setError] = useState(false);
@@ -9,6 +10,8 @@ const MainPage = () => {
   const inputRef = useRef(null);
 
   const navigate = useNavigate();
+
+  KeepWebsiteAlive();
 
   useEffect(() => {
     const userName = localStorage.getItem("lunaClient");
