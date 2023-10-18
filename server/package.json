@@ -4,8 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "server": "nodemon server",
-    "start": "npm run server"
+    "server": "nodemon server"
   },
   "keywords": [],
   "author": "",
