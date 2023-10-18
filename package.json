@@ -1,9 +1,4 @@
 {
-  
-  "scripts": {
-    "server": "nodemon server",
-    "start" : "node server.js"
-  },
   "dependencies": {
     "react-router-dom": "^6.16.0",
     "sass": "^1.68.0"
