@@ -172,7 +172,7 @@ const ChatComponent = () => {
     // };
 
     try {
-      const response = await fetch("https://l-u-n-a-codex.onrender.com", {
+      const response = await fetch("https://easy-gold-bat-gown.cyclic.app", {
         method: "POST",
         headers: {
           "Content-type": "application/json",

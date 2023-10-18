@@ -2,7 +2,7 @@
   
   "scripts": {
     "server": "nodemon server",
-    "start" : "node server.js"
+    "start" : "node main.js"
   },
   "dependencies": {
     "react-router-dom": "^6.16.0",
