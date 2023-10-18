@@ -308,27 +308,29 @@ const ChatComponent = () => {
         </div>
 
         <div className="form-container">
-          <div
-            className="completetion-container-main"
-            ref={completionContainerRef}
-          >
-            <ButtonWithImage
-              buttonText="What Is Artificial Intelligence?"
-              onButtonClick={handleButtonClick}
-            />
-            <ButtonWithImage
-              buttonText="Write a birthday wish for my friend"
-              onButtonClick={handleButtonClick}
-            />
-            <ButtonWithImage
-              buttonText="Give me a list of Instagram captions"
-              onButtonClick={handleButtonClick}
-            />
-            <ButtonWithImage
-              buttonText="Who was the best Roman emperor?"
-              onButtonClick={handleButtonClick}
-            />
-          </div>
+          {!isProcessingResponse && (
+            <div
+              className="completetion-container-main"
+              ref={completionContainerRef}
+            >
+              <ButtonWithImage
+                buttonText="What Is Artificial Intelligence?"
+                onButtonClick={handleButtonClick}
+              />
+              <ButtonWithImage
+                buttonText="Write a birthday wish for my friend"
+                onButtonClick={handleButtonClick}
+              />
+              <ButtonWithImage
+                buttonText="Give me a list of Instagram captions"
+                onButtonClick={handleButtonClick}
+              />
+              <ButtonWithImage
+                buttonText="Who was the best Roman emperor?"
+                onButtonClick={handleButtonClick}
+              />
+            </div>
+          )}
           <form
             style={{ minHeight: "62px" }}
             onSubmit={handleSubmit}
