@@ -121,6 +121,10 @@
   scrollbar-width: none;
 }
 
+.wrapper.ai .chat .message {
+  white-space: pre-wrap !important;
+}
+
 /* hides scrollbar */
 .message::-webkit-scrollbar {
   display: none;
