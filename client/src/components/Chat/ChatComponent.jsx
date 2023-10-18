@@ -313,7 +313,7 @@ const ChatComponent = () => {
         </div>
 
         <div className="form-container">
-          {!isProcessingResponse && chatMessages.length < 0 ? (
+          {!isProcessingResponse && chatMessages.length < 1 ? (
             <div
               className="completetion-container-main"
               ref={completionContainerRef}
