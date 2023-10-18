@@ -10,13 +10,14 @@ import Header from "../Header/Header";
 const ChatComponent = () => {
   const [chatMessages, setChatMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [copied, setCopied] = useState(false);
+  const [buttonText, setButtonText] = useState("");
   const [isProcessingResponse, setIsProcessingResponse] = useState(false);
   const [copiedMessageId, setCopiedMessageId] = useState(null);
 
   const typingTextRef = useRef(null);
   const formRef = useRef(null);
   const textareaRef = useRef(null);
+  const completionContainerRef = useRef(null);
 
   const capitalizeFirstTwoLetters = (str) => {
     return str
@@ -68,9 +69,13 @@ const ChatComponent = () => {
   // }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
 
-    typingTextRef.current.classList.add("hidden");
+    completionContainerRef?.current?.classList.add("hidden");
+
+    typingTextRef?.current?.classList.add("hidden");
 
     if (inputValue.trim() === "") {
       alert("Empty prompt");
@@ -227,6 +232,20 @@ const ChatComponent = () => {
     }, 3000);
   }
 
+  const handleButtonClick = (buttonText) => {
+    setInputValue(buttonText);
+    setButtonText(buttonText);
+  };
+
+  useEffect(() => {
+    if (inputValue.length > 1) {
+      if (inputValue.trim() === buttonText.trim()) {
+        handleSubmit();
+      }
+    }
+    return () => {};
+  }, [buttonText]);
+
   const autoResize = () => {
     const formElement = formRef.current;
     const textareaElement = textareaRef.current;
@@ -289,6 +308,27 @@ const ChatComponent = () => {
         </div>
 
         <div className="form-container">
+          <div
+            className="completetion-container-main"
+            ref={completionContainerRef}
+          >
+            <ButtonWithImage
+              buttonText="What Is Artificial Intelligence?"
+              onButtonClick={handleButtonClick}
+            />
+            <ButtonWithImage
+              buttonText="Write a birthday wish for my friend"
+              onButtonClick={handleButtonClick}
+            />
+            <ButtonWithImage
+              buttonText="Give me a list of Instagram captions"
+              onButtonClick={handleButtonClick}
+            />
+            <ButtonWithImage
+              buttonText="Who was the best Roman emperor?"
+              onButtonClick={handleButtonClick}
+            />
+          </div>
           <form
             style={{ minHeight: "62px" }}
             onSubmit={handleSubmit}
@@ -303,6 +343,7 @@ const ChatComponent = () => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               ref={textareaRef}
+              disabled={isProcessingResponse}
             />
             <button type="submit">
               {isProcessingResponse ? (
@@ -358,3 +399,22 @@ const ChatComponent = () => {
 };
 
 export default ChatComponent;
+
+const ButtonWithImage = ({ buttonText, onButtonClick }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const phoneScreenWidth = 700;
+  const isPhoneScreen = window.innerWidth < phoneScreenWidth;
+
+  return (
+    <button
+      className="completetion-container"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onButtonClick(buttonText)}
+    >
+      {buttonText}{" "}
+      {isHovered && !isPhoneScreen ? <img src={send} alt="Send" /> : ""}
+    </button>
+  );
+};

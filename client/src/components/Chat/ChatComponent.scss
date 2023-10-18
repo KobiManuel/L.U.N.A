@@ -131,6 +131,41 @@
   position: fixed;
   bottom: 0;
   border-radius: 16px;
+
+  .completetion-container-main {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 32px;
+    &.hidden {
+      display: none !important;
+    }
+    .completetion-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      width: 45%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #3f8d8d;
+      font-size: 16px;
+      height: 60px;
+      box-shadow: 0 1px 10px #55555560;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        background-color: #a2e4e420;
+      }
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
 }
 form {
   width: 100%;
@@ -284,6 +319,27 @@ form img {
     width: 80%;
   }
 }
+
+@media screen and (max-width: 1003px) {
+  .completetion-container {
+    font-size: 12px !important;
+    max-height: 70.29px !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .chat {
+    padding-right: 20px !important;
+  }
+  .message {
+    font-size: 13px !important;
+  }
+  #typing-text {
+    font-size: 13px !important;
+    padding-right: 20px !important;
+  }
+}
+
 @media screen and (max-width: 707px) {
   #typing-text {
     gap: 16px;
